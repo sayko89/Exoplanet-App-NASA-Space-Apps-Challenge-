@@ -1,0 +1,4 @@
+name,system,distance_ly,radius_earth,mass_earth,habitable,discovery_year,temperature_k
+Kepler-186f,Kepler-186,492,1.11,3.5,True,2014,270
+Proxima b,Proxima Centauri,4.24,1.1,1.27,False,2016,234
+TRAPPIST-1e,TRAPPIST-1,39.6,0.92,0.62,True,2017,251
