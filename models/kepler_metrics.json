@@ -1,0 +1,48 @@
+{
+  "label": "planet-like signal (CONFIRMED or CANDIDATE) vs FALSE POSITIVE",
+  "cv": "GroupKFold(5) by star (kepid)",
+  "n_objects": 9564,
+  "n_positive": 4725,
+  "auc_mean": 0.9233790161480029,
+  "auc_std": 0.004069741575186212,
+  "ap_mean": 0.9176137392590622,
+  "ap_std": 0.00831857619147107,
+  "accuracy_at_0_5": 0.8424299456294437,
+  "confusion_matrix": [
+    [
+      4042,
+      797
+    ],
+    [
+      710,
+      4015
+    ]
+  ],
+  "n_trees": 156,
+  "importance_gain": {
+    "koi_period": 0.1405,
+    "koi_duration": 0.1265,
+    "koi_depth": 0.0509,
+    "koi_model_snr": 0.0874,
+    "koi_num_transits": 0.0686,
+    "koi_teq": 0.0545,
+    "koi_prad": 0.292,
+    "koi_sma": 0.0416,
+    "koi_steff": 0.058,
+    "koi_srad": 0.0461,
+    "koi_smass": 0.0338
+  },
+  "medians": {
+    "koi_period": 9.752831,
+    "koi_duration": 3.7926,
+    "koi_depth": 421.1,
+    "koi_model_snr": 23.0,
+    "koi_num_transits": 143.0,
+    "koi_teq": 878.0,
+    "koi_prad": 2.39,
+    "koi_sma": 0.0851,
+    "koi_steff": 5767.0,
+    "koi_srad": 1.0,
+    "koi_smass": 0.974
+  }
+}

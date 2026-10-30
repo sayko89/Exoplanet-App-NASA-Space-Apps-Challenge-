@@ -1,0 +1,22 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: pip install -r requirements.txt pytest
+      - name: Rebuild datasets and check nothing changed
+        run: |
+          python scripts/build_datasets.py
+          git diff --exit-code -- data/kepler.csv data/tess.csv data/k2.csv
+      - run: pytest -q
