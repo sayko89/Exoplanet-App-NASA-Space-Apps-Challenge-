@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 from backend import ui
 
 ui.theme()
-ui.header('Chatbot', 'Meet ASTARTE, our Landbot assistant for Kepler, TESS and K2 questions.')
+ui.header('Chatbot', 'Our Landbot assistant for questions about Kepler, TESS and K2.')
 
 # Published Landbot bot, embedded as-is.
 components.html(

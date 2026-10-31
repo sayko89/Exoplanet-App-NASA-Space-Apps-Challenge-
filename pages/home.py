@@ -48,11 +48,11 @@ st.caption('Kepler stared at one patch of Cygnus–Lyra; K2 stepped along the ec
 st.subheader('Start here')
 a, b, c = st.columns(3)
 with a:
-    st.markdown('**🔭 Exoplanet List**  \nFilter by mission, status, size and temperature; open any object.')
-    st.page_link('pages/explorer.py', label='Open the list', icon='🔭')
+    st.markdown('**Exoplanet List**  \nFilter by mission, status, size and temperature; open any object.')
+    st.page_link('pages/explorer.py', label='Open the list', icon=':material/arrow_forward:')
 with b:
-    st.markdown('**🌍 Exoplanet Details**  \nKey numbers, comparison charts and a side-by-side with Earth.')
-    st.page_link('pages/details.py', label='Open details', icon='🌍')
+    st.markdown('**Exoplanet Details**  \nKey numbers, comparison charts and a side-by-side with Earth.')
+    st.page_link('pages/details.py', label='Open details', icon=':material/arrow_forward:')
 with c:
-    st.markdown('**🤖 AI Classifier**  \nLightGBM model: planet-like signal or false positive?')
-    st.page_link('pages/classifier.py', label='Try the model', icon='🤖')
+    st.markdown('**AI Classifier**  \nLightGBM model: planet-like signal or false positive?')
+    st.page_link('pages/classifier.py', label='Try the model', icon=':material/arrow_forward:')

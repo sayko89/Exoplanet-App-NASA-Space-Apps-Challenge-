@@ -41,7 +41,7 @@ f = lambda col: row.get(col) if pd.notna(row.get(col)) else None  # noqa: E731
 
 dcolor = ui.DISPOSITION_COLORS.get(row['disposition'], '#6c757d')
 st.markdown(
-    f'<p class="obj-name">{name}</p>'
+    f'<div class="obj-name">{name}</div>'
     f'<p style="text-align:center">{ui.badge(mission.value, ui.MISSION_COLORS[mission.value])} '
     f'{ui.badge(row["disposition"].title(), dcolor)} '
     f'<span class="muted">host: {row["host"]}</span></p>',
@@ -59,9 +59,9 @@ st.markdown(f"""
 if mission is Mission.KEPLER and f('ai_planet_prob') is not None:
     p = float(f('ai_planet_prob'))
     verdict = 'looks like a planet' if p >= 0.5 else 'looks like a false positive'
-    st.info(f'🤖 **AI Classifier:** {p:.0%} planet-like — the signal {verdict}. '
+    st.info(f'**AI Classifier:** {p:.0%} planet-like — the signal {verdict}. '
             f'The archive says **{row["disposition"].lower()}**.')
-    st.page_link('pages/classifier.py', label='How the model works', icon='🤖')
+    st.page_link('pages/classifier.py', label='How the model works', icon=':material/arrow_forward:')
 
 st.divider()
 left, right = st.columns(2)
@@ -112,16 +112,16 @@ if transit is None and f('orbital_period_days') and f('stellar_radius_sun') and 
     transit_note = 'estimated'
 
 cards = [
-    ('🌡️', ui.fmt(temp, 0), 'Equilibrium temperature (K)'),
-    ('⚖️', ui.fmt(density), 'Density (g/cm³)'),
-    ('⏱️', ui.fmt(transit), f'Transit duration (h, {transit_note})'),
-    ('🕰️', ui.fmt(f('orbital_period_days')), 'Orbital period (days)'),
-    ('☀️', ui.fmt(f('insolation')), 'Insolation (Earth = 1)'),
-    ('⭐', ui.fmt(f('stellar_teff_k'), 0), 'Host star temperature (K)'),
+    (ui.fmt(temp, 0), 'Equilibrium temperature (K)'),
+    (ui.fmt(density), 'Density (g/cm³)'),
+    (ui.fmt(transit), f'Transit duration (h, {transit_note})'),
+    (ui.fmt(f('orbital_period_days')), 'Orbital period (days)'),
+    (ui.fmt(f('insolation')), 'Insolation (Earth = 1)'),
+    (ui.fmt(f('stellar_teff_k'), 0), 'Host star temperature (K)'),
 ]
 html = '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px">'
-for emoji, v, label in cards:
-    html += (f'<div class="stat" style="text-align:center;padding:20px 12px"><div style="font-size:30px">{emoji}</div>'
+for v, label in cards:
+    html += (f'<div class="stat" style="text-align:center;padding:20px 12px">'
              f'<div class="v" style="margin-top:6px">{v}</div><div class="l">{label}</div></div>')
 st.markdown(html + '</div>', unsafe_allow_html=True)
 

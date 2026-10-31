@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://sayko89.github.io/Exoplanet-App-NASA-Space-Apps-Challenge-/"><img src="https://img.shields.io/badge/▶_live_demo-open_in_browser-5eead4?style=for-the-badge&labelColor=0b1230" alt="Live demo"></a>
+  <a href="https://sayko89.github.io/Exoplanet-App-NASA-Space-Apps-Challenge-/"><img src="https://img.shields.io/badge/live_demo-open_in_browser-5eead4?style=for-the-badge&labelColor=0b1230" alt="Live demo"></a>
   <img src="https://img.shields.io/badge/NASA_Space_Apps-2025-c4b5fd?style=for-the-badge&labelColor=0b1230" alt="NASA Space Apps 2025">
   <img src="https://img.shields.io/badge/ROC_AUC-0.923-60a5fa?style=for-the-badge&labelColor=0b1230" alt="ROC AUC 0.923">
   <a href="https://github.com/sayko89/Exoplanet-App-NASA-Space-Apps-Challenge-/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/sayko89/Exoplanet-App-NASA-Space-Apps-Challenge-/ci.yml?style=for-the-badge&labelColor=0b1230&label=tests" alt="Tests"></a>
@@ -32,40 +32,40 @@ When a planet passes in front of its star, the star dims by a tiny, regular amou
 </tr>
 </table>
 
-## ✨ What's inside
+## What's inside
 
 <table>
 <tr>
 <td width="50%" valign="top">
 <img src="docs/screenshots/home.png" alt="Home: totals and sky map">
-<h3>🪐 A sky full of signals</h3>
+<h3>A sky full of signals</h3>
 Every object from the three missions on one sky map: Kepler's single deep field in Cygnus–Lyra, K2's steps along the ecliptic, TESS across the whole sky.
 </td>
 <td width="50%" valign="top">
 <img src="docs/screenshots/list.png" alt="Exoplanet list with filters">
-<h3>🔭 Search and filter</h3>
+<h3>Search and filter</h3>
 Switch between Kepler, TESS and K2, filter by status, size and temperature, or sort by <i>closest to Earth-like</i>. One toggle shows only temperate, roughly Earth-sized worlds.
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 <img src="docs/screenshots/details.png" alt="Details page for K2-18 b">
-<h3>🌍 Every planet, in detail</h3>
+<h3>Every planet, in detail</h3>
 Year, distance, radius, mass, density, transit duration and insolation; where it sits among its neighbours; a side-by-side with Earth. Each planet has its own link, for example <a href="https://sayko89.github.io/Exoplanet-App-NASA-Space-Apps-Challenge-/details?sat=K2&planet=K2-18+b">K2-18 b</a>.
 </td>
 <td width="50%" valign="top">
 <img src="docs/screenshots/classifier.png" alt="AI Classifier page">
-<h3>🤖 AI Classifier</h3>
+<h3>AI Classifier</h3>
 Pick any Kepler object and see how planet-like its signal is, or move eleven sliders (period, depth, star size…) and watch the probability change live.
 </td>
 </tr>
 </table>
 
-### 💬 ASTARTE, the assistant
+### Chatbot
 
-The **Chatbot** page hosts ASTARTE, a conversational assistant built with Landbot for this project. It answers questions about Kepler, TESS and K2 and about how to use the app.
+The **Chatbot** page hosts a conversational assistant built with Landbot for this project. It answers questions about Kepler, TESS and K2 and about how to use the app.
 
-## 🛰️ Real data, nothing invented
+## Real data, nothing invented
 
 Every number comes from the **[NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/)**. One script turns the raw archive exports into three tables with a shared schema, so every page treats the missions the same way.
 
@@ -87,7 +87,7 @@ flowchart LR
 
 If the archive does not have a value, the app shows "–" instead of a guess. The Kepler table has no distances or masses, TESS has no masses, and K2 masses exist only for planets with radial-velocity follow-up.
 
-## 🧠 The model
+## The model
 
 | | |
 |---|---|
@@ -103,13 +103,13 @@ Each Kepler object in the app shows an **out-of-fold** score from a model that n
 
 To run in the browser without LightGBM, the trained trees are exported to JSON and walked by a few dozen lines of plain Python ([`backend/classifier.py`](backend/classifier.py)). The training script checks that this matches LightGBM's own predictions.
 
-## ⚡ How the live demo works
+## How the live demo works
 
 There is no backend. The [demo page](https://sayko89.github.io/Exoplanet-App-NASA-Space-Apps-Challenge-/) loads **Python compiled to WebAssembly** ([Pyodide](https://pyodide.org)) and runs the Streamlit app inside your browser with [stlite](https://github.com/whitphx/stlite). The first visit takes about 20 seconds while Python loads; after that, everything you click runs on your own computer.
 
 Every push runs the tests, rebuilds the demo, deploys it to GitHub Pages and opens it in a real browser to make sure every page loads.
 
-## 🧰 Built with
+## Built with
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)
@@ -121,7 +121,7 @@ Every push runs the tests, rebuilds the demo, deploys it to GitHub Pages and ope
 ![Landbot](https://img.shields.io/badge/Landbot-chatbot-1f2937?style=flat-square)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 
-## 🚀 Run it locally
+## Run it locally
 
 ```bash
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
@@ -155,7 +155,7 @@ tests/              page smoke tests and data checks
 ```
 </details>
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 This research has made use of the NASA Exoplanet Archive, which is operated by the California Institute of Technology under contract with the National Aeronautics and Space Administration under the Exoplanet Exploration Program. Created for the [NASA International Space Apps Challenge](https://www.spaceappschallenge.org/) 2025. This project is not endorsed by NASA.
 
