@@ -39,10 +39,10 @@ LABELS = {
 
 
 def gauge(p: float) -> None:
-    color = '#198754' if p >= 0.5 else '#6c757d'
+    color = '#5eead4' if p >= 0.5 else '#94a3b8'
     word = 'planet-like signal' if p >= 0.5 else 'likely false positive'
     st.markdown(
-        f'<div class="stat" style="text-align:center"><div class="v" style="font-size:44px;color:{color if p < 0.5 else "#7ee2a8"}">{p:.0%}</div>'
+        f'<div class="stat" style="text-align:center"><div class="v" style="font-size:44px;color:{color}">{p:.0%}</div>'
         f'<div class="l">{word}</div></div>', unsafe_allow_html=True)
     st.progress(p)
 
@@ -106,7 +106,7 @@ Evaluation: {m['cv']}.
     imp = pd.DataFrame({'feature': [LABELS[k][0] for k in m['importance_gain']],
                         'importance': list(m['importance_gain'].values())}).sort_values('importance')
     fig = px.bar(imp, x='importance', y='feature', orientation='h', labels={'importance': 'Share of total gain', 'feature': ''})
-    fig.update_traces(marker_color=ui.NAVY)
+    fig.update_traces(marker_color='#5eead4')
     fig.update_layout(height=380, margin=dict(l=10, r=10, t=10, b=10))
     st.plotly_chart(fig, width='stretch')
     cm = m['confusion_matrix']

@@ -8,6 +8,7 @@ from backend.data_manager import ROOT, Mission, load, load_all
 
 ui.theme()
 
+st.markdown('<div class="hero-kicker">NASA SPACE APPS CHALLENGE 2025</div>', unsafe_allow_html=True)
 st.markdown('<div class="hero-title">Exoplanet Explorer</div>', unsafe_allow_html=True)
 st.markdown('<p class="page-sub">Browse every Kepler, TESS and K2 object of interest, '
             'and ask a machine-learning model whether a transit signal looks like a real planet.</p>',
@@ -37,8 +38,8 @@ fig = px.scatter(sky, x='ra', y='dec', color='mission', hover_name='name',
                  color_discrete_map=ui.MISSION_COLORS, opacity=0.55, render_mode='webgl',
                  labels={'ra': 'Right ascension (°)', 'dec': 'Declination (°)', 'mission': 'Mission'})
 fig.update_traces(marker=dict(size=3))
-fig.update_layout(height=440, margin=dict(l=10, r=10, t=40, b=10), plot_bgcolor='#06152a',
-                  paper_bgcolor='rgba(0,0,0,0)', legend=dict(orientation='h', y=1.02, x=0, yanchor='bottom', title=None))
+fig.update_layout(height=440, margin=dict(l=10, r=10, t=40, b=10), plot_bgcolor='rgba(2,4,12,.85)',
+                  legend=dict(orientation='h', y=1.02, x=0, yanchor='bottom', title=None))
 fig.update_xaxes(range=[360, 0], gridcolor='rgba(255,255,255,0.08)')
 fig.update_yaxes(range=[-90, 90], gridcolor='rgba(255,255,255,0.08)')
 st.plotly_chart(fig, width="stretch")

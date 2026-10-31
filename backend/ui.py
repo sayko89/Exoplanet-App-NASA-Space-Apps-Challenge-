@@ -1,48 +1,84 @@
-"""Shared look for every page: the team's blue theme, page headers and number formatting."""
+"""Shared look for every page: dark space theme, plot template, headers and number formatting."""
 from __future__ import annotations
 
 import math
 
 import streamlit as st
 
-NAVY = '#0b2e61'
-BLUE = '#0d6efd'
-MISSION_COLORS = {'Kepler': '#0d6efd', 'TESS': '#6f42c1', 'K2': '#20c997'}
-DISPOSITION_COLORS = {'CONFIRMED': '#198754', 'CANDIDATE': '#0d6efd', 'FALSE POSITIVE': '#adb5bd'}
+NAVY = '#0b1430'
+ACCENT = '#5eead4'
+MISSION_COLORS = {'Kepler': '#60a5fa', 'TESS': '#c084fc', 'K2': '#2dd4bf'}
+DISPOSITION_COLORS = {'CONFIRMED': '#22c55e', 'CANDIDATE': '#60a5fa', 'FALSE POSITIVE': '#64748b'}
 
+# Deep-space theme: near-black navy, faint star field, glassy cards, cyan/violet accents.
 _CSS = """
 <style>
-  .stApp { background: linear-gradient(180deg, #d6e4ff 0%, #c7d8ff 100%); }
-  [data-testid="stSidebar"] { background: linear-gradient(180deg, #2e6fd8 0%, #1d4fb5 100%); }
-  [data-testid="stSidebar"] * { color: rgba(255,255,255,0.94) !important; }
-  [data-testid="stSidebarNav"] a[aria-current="page"] { background: rgba(255,255,255,0.18); border-radius: 8px; }
-  .page-title { text-align: center; font-weight: 800; color: #0b2e61; font-size: clamp(28px, 4vw, 42px); margin: 4px 0 6px; }
-  .page-sub { text-align: center; color: rgba(10,32,64,0.8); font-size: clamp(14px, 2vw, 17px); margin: 0 0 18px; }
-  .hero-title { font-size: clamp(36px, 6vw, 56px); font-weight: 800; text-align: center; margin: 0.4rem 0 0.2rem;
-    background: linear-gradient(90deg, #0d6efd 0%, #6f42c1 50%, #20c997 100%);
+  .stApp {
+    background:
+      radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.55) 50%, transparent 51%),
+      radial-gradient(1px 1px at 68% 9%, rgba(255,255,255,.45) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 82% 42%, rgba(255,255,255,.5) 50%, transparent 51%),
+      radial-gradient(1px 1px at 33% 61%, rgba(255,255,255,.35) 50%, transparent 51%),
+      radial-gradient(1px 1px at 91% 77%, rgba(255,255,255,.4) 50%, transparent 51%),
+      radial-gradient(1px 1px at 7% 88%, rgba(255,255,255,.35) 50%, transparent 51%),
+      radial-gradient(900px 500px at 85% -10%, rgba(124,58,237,.22), transparent 60%),
+      radial-gradient(800px 500px at -10% 30%, rgba(14,165,233,.14), transparent 60%),
+      linear-gradient(180deg, #050816 0%, #070b1d 100%);
+    background-attachment: fixed;
+  }
+  [data-testid="stHeader"] { background: transparent; }
+  [data-testid="stSidebar"] { background: linear-gradient(180deg, #0a1027 0%, #070b1d 100%); border-right: 1px solid rgba(148,163,184,.12); }
+  [data-testid="stSidebarNav"] a[aria-current="page"] { background: rgba(94,234,212,.12); border-radius: 8px; }
+  .page-title { text-align: center; font-weight: 800; color: #f1f5ff; font-size: clamp(28px, 4vw, 42px); margin: 4px 0 6px; letter-spacing: -.01em; }
+  .page-sub { text-align: center; color: #94a3c4; font-size: clamp(14px, 2vw, 17px); margin: 0 0 18px; }
+  .hero-kicker { text-align: center; font: 600 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .28em; color: #5eead4; margin-top: .6rem; }
+  .hero-title { font-size: clamp(38px, 6vw, 60px); font-weight: 800; text-align: center; margin: 0.5rem 0 0.2rem; letter-spacing: -.02em;
+    background: linear-gradient(90deg, #93c5fd 0%, #c4b5fd 50%, #5eead4 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent; }
   .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;
-    letter-spacing: 0.03em; color: #fff; }
-  .stat { background: #0b2e61; color: #fff; border-radius: 14px; padding: 16px 18px; box-shadow: 0 4px 14px rgba(11,46,97,0.25); }
-  .stat .v { font-size: 26px; font-weight: 800; line-height: 1.1; }
-  .stat .l { font-size: 13px; opacity: 0.85; }
-  .planet-card { background: rgba(255,255,255,0.55); border: 1px solid rgba(13,110,253,0.35); border-radius: 12px;
-    padding: 12px 14px 10px; box-shadow: 0 2px 10px rgba(13,110,253,0.15); margin-bottom: 6px; }
-  .planet-card .t { color: #0b2e61; font-weight: 800; font-size: 1.02rem; margin: 0 0 6px; }
-  .planet-card .m { color: rgba(10,32,64,0.78); font-size: 13px; line-height: 1.55; }
+    letter-spacing: 0.03em; color: #050816; }
+  .stat { background: rgba(15,23,52,.72); border: 1px solid rgba(148,163,184,.16); color: #f1f5ff; border-radius: 14px;
+    padding: 16px 18px; backdrop-filter: blur(6px); }
+  .stat .v { font-size: 26px; font-weight: 800; line-height: 1.1; color: #f8fafc; }
+  .stat .l { font-size: 13px; color: #94a3c4; }
+  .planet-card { background: rgba(15,23,52,.66); border: 1px solid rgba(96,165,250,.22); border-radius: 12px;
+    padding: 12px 14px 10px; margin-bottom: 6px; }
+  .planet-card .t { color: #f1f5ff; font-weight: 800; font-size: 1.02rem; margin: 0 0 6px; }
+  .planet-card .m { color: #94a3c4; font-size: 13px; line-height: 1.55; }
   .round-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 6px 0 14px; }
   .round-item { text-align: center; }
-  .round { width: 112px; height: 112px; border-radius: 50%; background: #0b2e61; color: #fff; display: inline-flex;
-    align-items: center; justify-content: center; font-weight: 800; font-size: 18px; box-shadow: 0 6px 18px rgba(11,46,97,0.3); }
-  .round-label { color: rgba(10,32,64,0.85); margin-top: 8px; font-weight: 600; }
-  div[data-testid="stButton"] > button[kind="secondary"] { background: #0b2e61; color: #fff; border-color: #0b2e61; }
-  div[data-testid="stButton"] > button[kind="secondary"]:hover { background: #0d3a7a; color: #fff; border-color: #0d3a7a; }
+  .round { width: 112px; height: 112px; border-radius: 50%; color: #f8fafc; display: inline-flex; align-items: center;
+    justify-content: center; font-weight: 800; font-size: 18px;
+    background: radial-gradient(circle at 32% 28%, #1e3a8a 0%, #0b1430 70%);
+    box-shadow: 0 0 0 1px rgba(94,234,212,.35), 0 0 28px rgba(94,234,212,.18); }
+  .round-label { color: #94a3c4; margin-top: 8px; font-weight: 600; }
+  .obj-name { text-align: center; margin: 6px 0 2px; font-size: 28px; font-weight: 800; color: #f1f5ff; }
+  .muted { color: #94a3c4; }
+  div[data-testid="stButton"] > button[kind="secondary"] { background: rgba(30,58,138,.55); color: #e2e8f0;
+    border: 1px solid rgba(96,165,250,.35); }
+  div[data-testid="stButton"] > button[kind="secondary"]:hover { background: rgba(37,99,235,.6); color: #fff; border-color: #60a5fa; }
   @media (max-width: 640px) { .round-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
 """
 
 
+def _plotly_template() -> None:
+    import plotly.graph_objects as go
+    import plotly.io as pio
+    if 'space' in pio.templates:
+        return
+    t = go.layout.Template(pio.templates['plotly_dark'])
+    t.layout.paper_bgcolor = 'rgba(0,0,0,0)'
+    t.layout.plot_bgcolor = 'rgba(8,13,34,.65)'
+    t.layout.font = dict(color='#cbd5e1')
+    t.layout.xaxis.gridcolor = t.layout.yaxis.gridcolor = 'rgba(148,163,184,.12)'
+    t.layout.xaxis.zerolinecolor = t.layout.yaxis.zerolinecolor = 'rgba(148,163,184,.2)'
+    pio.templates['space'] = t
+    pio.templates.default = 'space'
+
+
 def theme() -> None:
+    _plotly_template()
     st.markdown(_CSS, unsafe_allow_html=True)
 
 

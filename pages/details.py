@@ -41,10 +41,10 @@ f = lambda col: row.get(col) if pd.notna(row.get(col)) else None  # noqa: E731
 
 dcolor = ui.DISPOSITION_COLORS.get(row['disposition'], '#6c757d')
 st.markdown(
-    f'<p style="text-align:center;margin:6px 0 2px;font-size:28px;font-weight:800;color:{ui.NAVY}">{name}</p>'
+    f'<p class="obj-name">{name}</p>'
     f'<p style="text-align:center">{ui.badge(mission.value, ui.MISSION_COLORS[mission.value])} '
     f'{ui.badge(row["disposition"].title(), dcolor)} '
-    f'<span style="color:rgba(10,32,64,.75)">host: {row["host"]}</span></p>',
+    f'<span class="muted">host: {row["host"]}</span></p>',
     unsafe_allow_html=True)
 
 st.markdown(f"""
@@ -77,7 +77,7 @@ with left:
                              'disposition': ''})
     if f('radius_earth') and f('orbital_period_days'):
         fig.add_trace(go.Scatter(x=[f('orbital_period_days')], y=[f('radius_earth')], mode='markers',
-                                 marker=dict(size=16, color='red', symbol='star', line=dict(width=1, color='white')),
+                                 marker=dict(size=18, color='#f472b6', symbol='star', line=dict(width=1, color='white')),
                                  name=name))
     fig.update_traces(marker=dict(size=4), selector=dict(mode='markers', type='scattergl'))
     fig.update_layout(height=380, margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation='h', y=1.08))
@@ -92,7 +92,7 @@ with right:
         ref = pd.concat([ref, pd.DataFrame({'Body': [name], 'Radius (Earth)': [f('radius_earth')]})])
     ref = ref.sort_values('Radius (Earth)')
     fig2 = px.bar(ref, x='Body', y='Radius (Earth)', color='Body',
-                  color_discrete_map={'Earth': '#2e6fd8', 'Neptune': '#20c997', 'Jupiter': '#d4a373', name: '#dc3545'})
+                  color_discrete_map={'Earth': '#60a5fa', 'Neptune': '#2dd4bf', 'Jupiter': '#fbbf24', name: '#f472b6'})
     fig2.update_layout(height=380, showlegend=False, margin=dict(l=10, r=10, t=10, b=10))
     st.plotly_chart(fig2, width='stretch')
 
@@ -141,7 +141,7 @@ if st.session_state.get('show_compare'):
                 st.caption('Not available for this object.')
                 continue
             d = pd.DataFrame({'': ['Earth', name], label: [earth, val]})
-            fig3 = px.bar(d, x='', y=label, color='', color_discrete_sequence=['#2e6fd8', '#dc3545'])
+            fig3 = px.bar(d, x='', y=label, color='', color_discrete_sequence=['#60a5fa', '#f472b6'])
             fig3.update_layout(height=260, showlegend=False, margin=dict(l=0, r=0, t=0, b=0))
             st.plotly_chart(fig3, width='stretch')
     st.caption("Earth's equilibrium temperature is about 255 K (its surface averages ~288 K thanks to the atmosphere).")
